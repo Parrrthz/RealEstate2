@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <div className='border-2 position flexCenter'>Footer</div>
   )
 }
 
