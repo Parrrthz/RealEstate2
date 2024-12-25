@@ -25,17 +25,17 @@ const Footer = () => {
             {FOOTER_LINKS.map((col)=>(
               <FooterColumn key={col.title} title={col.title}> 
               <ul>
-                {col.links.map((Link)=>(
-                  <Link to={'/'} key={Link}>{Link}</Link>
+                {col.links.map((link)=>(
+                  <Link to={'/'} key={link}>{link}</Link>
                 ))}
               </ul>
               </FooterColumn>
             ))}
             <div className="flex flex-col gap-5">
               <FooterColumn title={FOOTER_CONTACT_INFO.title}>
-                {FOOTER_CONTACT_INFO.links.map((Link)=>(
-                  <Link to={'/'} key={Link.label} className="flex gap-4 md:flex-col lg:flex-row">
-                    <p>{Link.label}</p>:<p>{Link.value}</p>
+                {FOOTER_CONTACT_INFO.links.map((link)=> (
+                  <Link to={'/'} key={link.label} className="flex gap-4 md:flex-col lg:flex-row">
+                    <p>{link.label}</p>:<p>{link.value}</p>
                   </Link>
                 ))}
               </FooterColumn>
@@ -43,8 +43,8 @@ const Footer = () => {
             <div className="flex">
               <FooterColumn title={SOCIALS.title}>
                 <ul className="flex gap-4">
-                  {SOCIALS.links.map((Link)=>(
-                    <Link to={'/'} key={Link.id} className="text-xl">{Link.icon}</Link>
+                  {SOCIALS.links.map((link)=>(
+                    <Link to={'/'} key={link.id} className="text-xl">{link.icon}</Link>
                   ))}
                 </ul>
               </FooterColumn>
@@ -60,7 +60,7 @@ const Footer = () => {
 
 export default Footer;
 
-const  FooterColumn =({title, Children})=>{
+const  FooterColumn = ({title, Children}) => {
   return(
     <div className="flex flex-col gap-5">
       <h4 className="bold-18 whitespace-nowrap">{title}</h4>
