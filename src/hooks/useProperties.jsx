@@ -1,19 +1,19 @@
-import React from 'react'
-import { useQuery } from 'react'
-import { isError } from 'react-query';
+import { useQuery } from 'react-query'; // Fixed import for useQuery
 import { getAllProperties } from '../utils/api.js';
 
 const useProperties = () => {
-
-  const { data, error, isLoading, refetch } = useQuery(
+  const { data, isError, isLoading, refetch } = useQuery(
     "allProperties",
     getAllProperties,
-    {refetchOnWindowFocus:false}
+    { refetchOnWindowFocus: false }
   );
+
   return {
-       data,isLoading, isError, refetch
-    // data, isError, isLoading, refetch
- };
+    data,
+    isError,
+    isLoading,
+    refetch,
+  };
 };
 
-export default useProperties
+export default useProperties;

@@ -2,11 +2,11 @@ import React from 'react'
 import Searchbar from '../components/Searchbar'
 import { PROPERTIES } from '../constant/data'
 import Item from '../components/Item'
-import useProperties from '../hooks/useProperties'
+import useProperties from '../hooks/useProperties.jsx'
 
 const Listing = () => {
 
-  const [data, isError, isLoading] = useProperties();
+  const {data, isError, isLoading} = useProperties();
   console.log(data)
   return (
     <main className="max-padd-container my-[99px]">
@@ -23,7 +23,7 @@ const Listing = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
 export default Listing
