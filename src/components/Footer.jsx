@@ -90,7 +90,7 @@ const Footer = () => {
           <div className="max-w-sm">
             <Link to="/" className="flex items-center gap-x-2">
               <span className="font-[900] text-[24px]">
-                Casa <span className="font-[600] medium-20">Central</span>
+                Lotus <span className="font-[600] medium-20">Nest</span>
               </span>
             </Link>
             <p className="py-4">
@@ -148,7 +148,7 @@ const Footer = () => {
 
       {/* Copyright */}
       <p className="text-white bg-tertiary medium-14 py-2 px-8 rounded-b-3xl flex justify-between">
-        <span>2024 CasaCentral</span>All Rights Reserved
+        <span>2024 LotusNest</span>All Rights Reserved
       </p>
     </footer>
   );

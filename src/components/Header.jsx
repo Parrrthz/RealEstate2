@@ -38,7 +38,7 @@ const Header = () => {
           {/* logo */}
           <Link to={"/"}>
             <span className="font-[900] text-[24px] ">
-              Casa <span className="font-[600] medium-20">Central</span>
+              Lotus <span className="font-[600] medium-20">Nest</span>
             </span>
           </Link>
           {/* navbar */}
