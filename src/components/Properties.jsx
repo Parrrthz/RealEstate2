@@ -5,8 +5,9 @@ import { Swiper, SwiperSlide  } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import { PROPERTIES } from '../constant/data'
+// import { PROPERTIES } from '../constant/data'
 import Item from './Item'
+import { isError } from 'react-query'
 
 
 const Properties = () => {
