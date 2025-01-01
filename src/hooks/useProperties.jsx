@@ -1,3 +1,4 @@
+import React from 'react'
 import { useQuery } from 'react-query'; // Fixed import for useQuery
 import { getAllProperties } from '../utils/api.js';
 
