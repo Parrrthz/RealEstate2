@@ -28,8 +28,8 @@ export default function App(){
       <Route element={<Layout />}>
       <Route path="/" element={<Home />}/>
       <Route path="/listing">
-          <Route index element={<Listing />}/>
-          <Route path=":PropertyId" element={<Property />} />
+         <Route index element={<Listing />}/>
+         <Route path=":PropertyId" element={<Property />} />
       </Route>
       <Route path="/addproperty" element={<AddProperty />} />
       <Route path="/booking" element={<Booking />} />
