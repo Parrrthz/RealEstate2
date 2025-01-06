@@ -4,11 +4,14 @@ import Navbar from "./Navbar";
 import { MdMenu } from "react-icons/md";
 import { MdClose } from "react-icons/md";
 import UserIcon from "../assets/user.svg";
+import { useAuth0 } from "@auth0/auth0-react";
+import ProfileMenu from "./ProfileMenu";
 
 const Header = () => {
   const [active,setActive] = useState(false)
   const [menuOpened, setMenuOpened] = useState(close);
   const toggleMenu = () => setMenuOpened(!menuOpened);
+  const {loginWithRedirect,isAuthenticated, user, logout} = useAuth0()
 
 
   useEffect(()=>{
@@ -71,10 +74,12 @@ const Header = () => {
                 className="xl:hidden cursor-pointer text-3xl hover:text-secondary"
               />
             )}
-            <button className="btn-secondary flexCenter gap-x-2 medium-16 rounded-full">
+            {! isAuthenticated? (<button onClick={loginWithRedirect} className="btn-secondary flexCenter gap-x-2 medium-16 rounded-full">
               <img src={UserIcon} alt="" height={22} width={22} />
               <span>Login</span>
-            </button>
+            </button>) : (
+              <ProfileMenu user={user} Logout={logout} />
+            )}
           </div>
         </div>
       </div>
