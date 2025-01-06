@@ -7,7 +7,7 @@
   import '../constant/data.jsx'
 
   const Listing = () => {
-    const { data, isError, isLoading } = useProperties();
+    const { data=[], isError, isLoading } = useProperties();
     console.log(data)
 
     // if (isError) {
@@ -38,9 +38,16 @@
             <Searchbar />
             {/* container */}
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-10">
-              {data.map((property) => (
+              {/* {data.map((property) => (
                 <Item key={property.title} property={property} />
-              ))}
+              ))} */}
+               {Array.isArray(data) && data.length > 0 ? (
+            data.map((property) => (
+              <Item key={property.title} property={property} />
+            ))
+          ) : (
+            <p>No properties found or still loading...</p>
+          )}
             </div>
           </div>
         </div>

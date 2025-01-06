@@ -7,7 +7,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import Item from './Item'
 import useProperties from '../hooks/useProperties'
-import { PROPERTIES } from '../constant/data'
+import { PROPERTIES } from '../constant/data.jsx'
 // import { isError } from 'react-query'
 
 
@@ -66,7 +66,7 @@ const Properties = () => {
              modules={[Autoplay]}
              className='h-[488px] md:h-[533px] xl:h-[422px] mt-5'
              >
-            { PROPERTIES.slice(0,6).map((property)=>(
+            { data.slice(0,6).map((property)=>(
                 <SwiperSlide key={property.title}>
                     <Item property={property}/>
                 </SwiperSlide>

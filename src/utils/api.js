@@ -14,7 +14,8 @@ import {toast} from "react-toastify";
         if(response.status === 400 || response.status === 500){
             throw response.data;
         }
-        return response.data;
+        console.log(response.data);  //log the respose
+        return response.data;      // ensure this is  an  array
     } catch (error) {
         toast.error("seomething went wrong");
         throw error;

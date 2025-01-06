@@ -3,7 +3,7 @@ import { useQuery } from 'react-query'; // Fixed import for useQuery
 import { getAllProperties } from '../utils/api.js';
 
 const useProperties = () => {
-  const { data, isError, isLoading, refetch } = useQuery(
+  const { data = [], isError, isLoading, refetch } = useQuery(
     "allProperties",
     getAllProperties,
     { refetchOnWindowFocus: false }
