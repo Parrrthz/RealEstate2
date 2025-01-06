@@ -43,7 +43,7 @@ const Property = () => {
             <img src={data?.image} alt={data?.title} className='rounded-xl' />
             {/* like btn */}
             <div className='absolute top-4 right-6'>
-                <HeartBtn />
+                {/* <HeartBtn /> */}
             </div>
         </div>
         <h5 className="bold-16 my-1 text-secondary">{data?.city}</h5>
@@ -53,7 +53,9 @@ const Property = () => {
             <div className='flexCenter gap-x-2 border-r border-slate-900/50 pr-4 font-[500]'><MdOutlineBed /> {data?.facilities.bedrooms}</div>
             <div className='flexCenter gap-x-2 border-r border-slate-900/50 pr-4 font-[500]'><MdOutlineBathtub /> {data?.facilities.bathrooms}</div>
             <div className='flexCenter gap-x-2 border-r border-slate-900/50 pr-4 font-[500]'><MdOutlineGarage /> {data?.facilities.parkings}</div>
-            <div className='flexCenter gap-x-2 border-r border-slate-900/50 pr-4 font-[500]'><MdOutlineGarage /><CgRuler /></div> 400
+            <div className='flexCenter gap-x-2 border-r border-slate-900/50 pr-4 font-[500]'><MdOutlineGarage />
+            {/* <CgRuler /> */}
+            </div> 400
         </div>
         <p className="pt-2 mb-4 line-clamp-2">{data?.description}</p>
         <div className='flexBetween'>
