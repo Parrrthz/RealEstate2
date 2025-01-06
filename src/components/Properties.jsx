@@ -12,7 +12,7 @@ import { PROPERTIES } from '../constant/data.jsx'
 
 
 const Properties = () => {
-    const {data, isError, isLoading} = useProperties();
+    const {data=[], isError, isLoading} = useProperties();
     // if(isError){
     //     return (
     //       <div>

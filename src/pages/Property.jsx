@@ -14,10 +14,10 @@ const Property = () => {
 
   // console.log(id);
 
-  const { data, isLoading, isError } = useQuery(["resd"], () =>
+  const { data=[], isLoading, isError } = useQuery(["resd"], () =>
     getProperty(id));
 
-  // console.log(data)
+  console.log(data)
   
 //   if(isLoading){
 //   return( 
