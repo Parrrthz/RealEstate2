@@ -74,11 +74,11 @@ const Header = () => {
                 className="xl:hidden cursor-pointer text-3xl hover:text-secondary"
               />
             )}
-            {! isAuthenticated? (<button onClick={loginWithRedirect} className="btn-secondary flexCenter gap-x-2 medium-16 rounded-full">
+            {!isAuthenticated? (<button onClick={loginWithRedirect} className="btn-secondary flexCenter gap-x-2 medium-16 rounded-full">
               <img src={UserIcon} alt="" height={22} width={22} />
               <span>Login</span>
             </button>) : (
-              <ProfileMenu user={user} Logout={logout} />
+              <ProfileMenu user={user} logout={logout} />
             )}
           </div>
         </div>

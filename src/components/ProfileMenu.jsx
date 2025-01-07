@@ -1,14 +1,29 @@
-import React from 'react'
-import {Avtar,Menu} from "@mantine/core"
+import React from "react";
+import { Avatar, Menu } from "@mantine/core";
 
-const ProfileMenu = () => {
+const ProfileMenu = ({ user, logout }) => {
   return (
-  <Menu>
-    <Menu.Target>
-        <Avtar src={user?.picture} alt="userImage" radius={"xl"}/>
-    </Menu.Target>
-  </Menu>
-)
-}
+    <Menu>
+      <Menu.Target>
+        <Avatar src={user?.picture} alt="userImage" radius={"xl"} />
+      </Menu.Target>
+      <Menu.Dropdown>
+        <Menu.Label>Application</Menu.Label>
+        <Menu.Item>Favourites</Menu.Item>
+        <Menu.Item>Bookings</Menu.Item>
+        <Menu.Label>Go back</Menu.Label>
+        <Menu.Item 
+          onClick={ () => {
+            localStorage.clear();
+            logout();
+          }}
+           color="red"
+        >
+          Logout
+        </Menu.Item>
+      </Menu.Dropdown>
+    </Menu>
+  );
+};
 
-export default ProfileMenu
+export default ProfileMenu;
