@@ -26,4 +26,3 @@ createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 
-// npm i @mantine/core @mantine/dates @mantine/form @mantine/hooks
