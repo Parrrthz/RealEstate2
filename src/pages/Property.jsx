@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { isError, useQuery } from "react-query";
 import { Links, useLocation } from "react-router-dom";
 import { getProperty } from "../utils/api";
-import { MdOutlineBathtub, MdOutlineBed, MdOutlineGarage } from 'react-icons/md'
+// import {PuffLoader} from 'react-spinners';
+import { MdOutlineBathtub, MdOutlineBed, MdOutlineGarage } from 'react-icons/md';
+// import HeartBtn from "../components/HeartBtn.jsx";
+// import {Cgruler} from "react-icons/cg";
 import { FaLocationDot } from "react-icons/fa6";
 import Map from "../components/Map.jsx";
+import useAuthCheck from "../hooks/useAuthCheck.jsx";
+import { useAuth0 } from "@auth0/auth0-react";
+import BookingModal from "../components/BookingModal.jsx";
 
 
 const Property = () => {
@@ -20,7 +26,12 @@ const Property = () => {
     getProperty(id));
 
   console.log(data)
-  
+
+  const [modalOpened,setModalOpened] = useState(false);
+  const {validateLogin} = useAuthCheck();
+  const {user} = useAuth0();
+
+
 //   if(isLoading){
 //   return( 
 //     <div className="h-64 flexCenter">
@@ -75,7 +86,17 @@ const Property = () => {
         </div>
         <div className='flexBetween'>
             
-            <button className='btn-secondary rounded-xl !py-[7px] !px-5 shadow-sm'>Book The Visit</button>
+            <button onClick={()=>{
+              validateLogin() && setModalOpened(true);
+            }} 
+            className='btn-secondary rounded-xl !py-[7px] !px-5 shadow-sm w-full'>Book The Visit</button>
+
+            <BookingModal
+            opened = {modalOpened}
+            setOpened = {setModalOpened}
+            propertyId={id}
+            email={user?.email}
+            />
         </div>
       </div>
       {/* rightside */}
@@ -87,8 +108,3 @@ const Property = () => {
  )
 };
 export default Property;
-
-
-
-
-// 2.27.17
