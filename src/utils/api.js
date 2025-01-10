@@ -68,3 +68,30 @@ export const bookVisit = async (date, propertyId, email, token)=>{
        throw error
     }
 }
+
+// import dayjs from 'dayjs';
+// import { toast } from 'react-toastify';
+// import api from './api'; // Ensure this is the correct import for your `api` instance.
+
+// export const bookVisit = async (date, propertyId, email, token) => {
+//   try {
+//     await api.post(
+//       `/user/bookVisit/${propertyId}`,
+//       {
+//         email,
+//         id: propertyId,
+//         date: dayjs(date).format('DD/MM/YYYY'), // Corrected the variable name.
+//       },
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`, // Added a space after "Bearer".
+//         },
+//       }
+//     );
+//     toast.success('Booking confirmed successfully!', { position: 'bottom-right' });
+//   } catch (error) {
+//     toast.error('Something went wrong, please try again.', { position: 'bottom-right' });
+//     throw error;
+//   }
+// };
+
