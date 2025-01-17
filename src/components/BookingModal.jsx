@@ -1,87 +1,182 @@
-import React, { useContext, useState } from 'react'
-import {Modal,Button} from "@mantine/core";
-import {DatePicker} from "@mantine/dates";
-import { useMutation } from 'react-query';
-import UserDetailContext from '../context/userDetailContext';
-import { bookVisit } from '../utils/api';
+// import React, { useContext, useState } from 'react'
+// import {Modal,Button} from "@mantine/core";
+// import {DatePicker} from "@mantine/dates";
+// import { useMutation } from 'react-query';
+// import UserDetailContext from '../context/userDetailContext';
+// import { bookVisit } from '../utils/api';
+// import { toast } from 'react-toastify';
+// import dayjs from 'dayjs';
 
-const BookingModal = ({opened, setOpened, email, propertyId}) => {
+// const BookingModal = ({opened, setOpened, email, propertyId}) => {
 
-    const [value,setValue] = useState(null);
-    const {userDetails:{token}} = useContext(UserDetailContext)
-    console.log(token)
+//     const [value,setValue] = useState(null);
+//     const {
+//       userDetails:{token},
+//       setUserDetails} = useContext(UserDetailContext);
+//     // console.log('Token:',token);
+//     const handleBookingSuccess =()=>{
+//       toast.success("Your Visit Booked successfully",{ position:"bottom-right"});
+//     };
+//     setUserDetails((prev)=>({
+//       ...prev,
+//       bookings: [
+//         ...prev.bookings,
+//         {
+//           id: propertyId,date :dayjs(value).format('DD/MM/YYYY')
+//         }
+//       ]
+//     }))
 
 
-    const {mutate, isLoading} = useMutation({
-        mutationFn:()=>bookVisit(value, propertyId, email, token),
-    });
+//     const {mutate, isLoading} = useMutation({
+//         mutationFn:()=>bookVisit(value, propertyId, email, token),
+//         onSuccess:()=>handleBookingSuccess(),
+//         onError:({response})=>toast.error(response.data.message),
+//         onSettled:()=>setOpened(false)
+//     });
+
+//   return (
+//     <Modal
+//     opened = {opened}
+//     setOpened={setOpened}
+//     title="Select Your date to Visit"
+//     centered
+//     onClose={()=>setOpened(false)}>
+//        <div className="flexCenter flex-col gap-4">
+//          <DatePicker value={value} onChange={setValue} minDate={new Date()} />
+//          <Button disabled={!value} onClick={()=> mutate()}>Book Visit</Button>
+//        </div>
+//     </Modal>
+//   )
+// }
+// export default BookingModal;
+
+///////////////////////////////////gpt/////////////////////////////////////
+
+import React, { useContext, useState } from "react";
+import { Modal, Button } from "@mantine/core";
+import { DatePicker } from "@mantine/dates";
+import { useMutation } from "react-query";
+import UserDetailContext from "../context/userDetailContext";
+import { bookVisit } from "../utils/api";
+import { toast } from "react-toastify";
+import dayjs from "dayjs";
+
+const BookingModal = ({ opened, setOpened, email, propertyId }) => {
+  const [value, setValue] = useState(null);
+
+  // Extract user details and token from context
+  const {
+    userDetails: { token },
+    setUserDetails,
+  } = useContext(UserDetailContext);
+
+  // Success handler for booking
+  const handleBookingSuccess = () => {
+    toast.success("Your Visit Booked successfully", { position: "bottom-right" });
+
+    // Update user details with new booking
+    setUserDetails((prev) => ({
+      ...prev,
+      bookings: [
+        ...(prev.bookings || []), // Ensure existing bookings are considered
+        { id: propertyId, date: dayjs(value).format("DD/MM/YYYY") },
+      ],
+    }));
+  };
+
+  // Mutation for booking
+  const { mutate, isLoading } = useMutation({
+    mutationFn: () => bookVisit(value, propertyId, email, token),
+    onSuccess: () => handleBookingSuccess(),
+    onError: ({ response }) => toast.error(response?.data?.message || "An error occurred"),
+    onSettled: () => setOpened(false), // Close the modal
+  });
 
   return (
     <Modal
-    opened = {opened}
-    setOpened={setOpened}
-    title="Select Your date to Visit"
-    centered
-    onClose={()=>setOpened(false)}>
-       <div className="flexCenter flex-col gap-4">
-         <DatePicker value={value} onChange={setValue} minDate={new Date()} />
-         <Button disabled={!value} onClick={()=> mutate()}>Book Visit</Button>
-       </div>
+      opened={opened}
+      onClose={() => setOpened(false)}
+      title="Select Your Date to Visit"
+      centered
+    >
+      <div className="flexCenter flex-col gap-4">
+        {/* Date picker to select the date */}
+        <DatePicker value={value} onChange={setValue} minDate={new Date()} />
+        {/* Book Visit button */}
+        <Button
+          disabled={!value || isLoading}
+          loading={isLoading}
+          onClick={() => mutate()}
+        >
+          Book Visit
+        </Button>
+      </div>
     </Modal>
-  )
-}
+  );
+};
 
 export default BookingModal;
 
 
-// import React, { useContext, useState } from 'react';
-// import { Modal, Button } from '@mantine/core';
-// import { DatePicker } from '@mantine/dates';
-// import { useMutation } from 'react-query';
-// import UserDetailContext from '../context/userDetailContext';
-// import { bookVisit } from '../utils/api';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////
 
 // const BookingModal = ({ opened, setOpened, email, propertyId }) => {
 //   const [value, setValue] = useState(null);
-//   const { userDetails} = useContext(UserDetailContext);
-
+//   const { userDetails } = useContext(UserDetailContext);
 //   const token = userDetails?.token;
-//   if (!token) {
-//     console.error("Token is required but not available.");
-//     return null;
-//   }
+
+//   console.log("Token from context:", token);
 
 //   const { mutate, isLoading } = useMutation({
-//     mutationFn: () => bookVisit(value, propertyId, email, token),
-//     onSuccess: () => {
-//       alert('Booking successful!');
-//       setOpened(false);
-//     },
-//     onError: (error) => {
-//       console.error("Booking failed:", error);
-//       alert('Failed to book the visit. Please try again.');
+//     mutationFn: () => {
+//       if (!token) {
+//         console.error("Token is missing. Please log in again.");
+//         toast.error("Please log in to book a visit.");
+//         return;
+//       }
+//       if (!value) {
+//         console.error("Date is missing.");
+//         toast.error("Please select a date.");
+//         return;
+//       }
+//       return bookVisit(value, propertyId, email, token);
 //     },
 //   });
 
 //   return (
 //     <Modal
 //       opened={opened}
-//       onClose={() => setOpened(false)}
-//       title="Select Your Date to Visit"
+//       setOpened={setOpened}
+//       title="Select Your date to Visit"
 //       centered
+//       onClose={() => setOpened(false)}
 //     >
 //       <div className="flexCenter flex-col gap-4">
-//         <DatePicker 
-//           value={value} 
-//           onChange={setValue} 
-//           minDate={new Date()} 
-//           disabled={isLoading}
-//         />
-//         <Button 
-//           disabled={!value || isLoading} 
-//           onClick={() => mutate()}
-//           loading={isLoading}
-//         >
+//         <DatePicker value={value} onChange={setValue} minDate={new Date()} />
+//         <Button disabled={!value || !token} onClick={() => mutate()}>
 //           Book Visit
 //         </Button>
 //       </div>
@@ -89,4 +184,3 @@ export default BookingModal;
 //   );
 // };
 
-// export default BookingModal;

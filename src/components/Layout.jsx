@@ -16,25 +16,65 @@ const Layout = () => {
     mutationFn: (token)=> createUser(user?.email,token),
    });
 
-   useEffect(()=> {
 
+
+   ///////////////////////GPT///////////////////////////////////
+   useEffect(() => {
     const getTokenAndRegister = async () => {
-      const res = await getAccessTokenWithPopup({
-        authorizationParams:{
-          audience:"http://localhost:8000",
-          scope:"openid profile email"
-        },
-      });
-    localStorage.setItem("access_token",res);
-    setUserDetails((prev)=>({ ...prev,token:res}));
-    // console.log(res)
-    mutate(res);
+      try {
+        const res = await getAccessTokenWithPopup({
+          authorizationParams: {
+            audience: "http://localhost:8000",
+            scope: "openid profile email",
+          },
+        });
+  
+        // Save token to local storage
+        localStorage.setItem("access_token", res);
+  
+        // Update user details if setUserDetails is defined
+        if (typeof setUserDetails === "function") {
+          setUserDetails((prev) => ({
+            ...prev,
+            token: res,
+          }));
+        } else {
+          console.error("setUserDetails is not a function");
+        }
+  
+        // Trigger mutation
+        mutate(res);
+      } catch (error) {
+        console.error("Error in getTokenAndRegister:", error);
+      }
     };
+  
+    // Call getTokenAndRegister if user is authenticated
+    if (isAuthenticated) {
+      getTokenAndRegister();
+    }
+  }, [isAuthenticated, getAccessTokenWithPopup, setUserDetails, mutate]);
+
+  
+  //  useEffect(()=> {
+
+  //     const getTokenAndRegister = async () => {
+  //       const res = await getAccessTokenWithPopup({
+  //         authorizationParams:{
+  //           audience:"http://localhost:8000",
+  //           scope:"openid profile email"
+  //         },
+  //       });
+  //     localStorage.setItem("access_token",res);
+  //     setUserDetails((prev)=>({ ...prev,token:res}));
+  //     // console.log(res)
+  //     mutate(res);
+  //     };
 
  
 
-      isAuthenticated && getTokenAndRegister()
-   }, [isAuthenticated])
+  //     isAuthenticated && getTokenAndRegister()
+  //  }, [isAuthenticated])
 
 
   return (

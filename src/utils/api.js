@@ -3,8 +3,9 @@ import dayjs from "dayjs";
 import {toast} from "react-toastify";
 
  export const api =axios.create({
-    baseURL: 'http://localhost:8000/api'
- })
+    baseURL: 'http://localhost:8000/api',
+    timeout: 10000,
+ });
 
  export const getAllProperties = async () => {
     try {
@@ -51,47 +52,100 @@ export const createUser =  async(email,token) => {
     }
 };
 
-export const bookVisit = async (date, propertyId, email, token)=>{
-    try {
-        await api.post(`/user/bookVisit/${propertyId}`,{
-            email,
-            id: propertyId,
-            date:dayjs(data).format("DD/MM/YYYY")
-        },
-    {
-        headers:{
-            Authorization:`Bearer${token}`
-        }
-    })
-    } catch (error) {
-       toast.error("Something went wrong,try again please") 
-       throw error
-    }
-}
+// export const bookVisit = async (date, propertyId, email, token)=>{
+//     try {
+//         await api.post(`/user/bookVisit/${propertyId}`,{
+//             email,
+//             id: propertyId,
+//             date:dayjs(data).format("DD/MM/YYYY")
+//         },
+//     {
+//         headers:{
+//             Authorization:`Bearer${token}`
+//         }
+//     })
+//     } catch (error) {
+//        toast.error("Something went wrong,try again please") 
+//        throw error
+//     }
+// }
 
-// import dayjs from 'dayjs';
-// import { toast } from 'react-toastify';
+
+
 // import api from './api'; // Ensure this is the correct import for your `api` instance.
 
-// export const bookVisit = async (date, propertyId, email, token) => {
-//   try {
-//     await api.post(
-//       `/user/bookVisit/${propertyId}`,
-//       {
-//         email,
-//         id: propertyId,
-//         date: dayjs(date).format('DD/MM/YYYY'), // Corrected the variable name.
-//       },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`, // Added a space after "Bearer".
-//         },
-//       }
-//     );
-//     toast.success('Booking confirmed successfully!', { position: 'bottom-right' });
-//   } catch (error) {
-//     toast.error('Something went wrong, please try again.', { position: 'bottom-right' });
-//     throw error;
-//   }
-// };
 
+// export const bookVisit = async (date, propertyId, email, token) => {
+//     if (!token) {
+//       throw new Error('Token is missing. Please log in again.');
+//     }
+  
+//     try {
+//       // Format the date using dayjs
+//       const formattedDate = dayjs(date).format('DD/MM/YYYY');
+  
+//       // Send POST request to API
+//       const response = await axios.post(
+//         `http://localhost:8000/api/user/bookVisit/${propertyId}`,
+//         {
+//           email,
+//           id: propertyId,
+//           date: formattedDate,
+//         },
+//         {
+//           headers: {
+//             Authorization: `Bearer ${token}`, // Include token in Authorization header
+//           },
+//         }
+//       );
+  
+//       // Show success notification
+//       toast.success('Booking confirmed successfully!', {
+//         position: 'bottom-right',
+//       });
+  
+//       return response.data; // Return data if needed
+//     } catch (error) {
+//       // Log and handle errors
+//       console.error('Error booking visit:', error.response?.data || error.message);
+//       toast.error(
+//         error.response?.data?.error || 'Something went wrong. Please try again.',
+//         {
+//           position: 'bottom-right',
+//         }
+//       );
+//       throw error;
+//     }
+//   };
+/////////////////////////////////////////////////////////
+
+export const bookVisit = async (value, propertyId, email, token) => {
+  console.log("Token:", token); // Add this line
+  if (!token) throw new Error("Token is missing. Please log in again.");
+  const response = await axios.post(
+    `${BASE_URL}/api/user/bookVisit`,
+    {
+      date: value,
+      propertyId,
+      email,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+
+
+
+  export const removeBooking = async(id, email, token)=>{
+    try {
+      await api.post(`/user/removeBooking/${id}`)
+    } catch (error) {
+      toast.error("something went wrong ,try again please")
+      throw error
+    }
+  }
