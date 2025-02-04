@@ -27,7 +27,7 @@ const useAuthCheck = () => {
 
   const validateLogin = () => {
     if (!isAuthenticated) {
-      toast.error('You must log in to continue', { position: 'bottom-right' });
+      toast.error("You must log in to continue", { position: 'bottom-right' });
       return false;
     }
     return true;

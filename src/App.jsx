@@ -1,7 +1,7 @@
 // import { useState  } from 'react'
 import { BrowserRouter, Routes,Route } from "react-router-dom";
 import Home from "./pages/Home";
-import AddProperty from "./pages/AddProperty";
+// import AddProperty from "./pages/AddProperty";
 import Listing from "./pages/Listing";
 import Booking from "./pages/Booking";
 import Favourites from "./pages/Favourites";
@@ -39,7 +39,7 @@ export default function App(){
          <Route index element={<Listing />}/>
          <Route path=":PropertyId" element={<Property />} />
       </Route>
-      <Route path="/addproperty" element={<AddProperty />} />
+      {/* <Route path="/addproperty" element={<AddProperty />} /> */}
       <Route path="/booking" element={<Booking />} />
       <Route path="/favourites" element={<Favourites />} />
       </Route>

@@ -1,7 +1,7 @@
 import React from 'react'
 import {MapContainer,TileLayer} from "react-leaflet"
 import GeoCodeMarker from './GeoCodeMarker.jsx'
-const Map = (address,city,country) => {
+const Map = ({address, city, country}) => {
    return (
    <MapContainer
    center={[53.35,18.8]}

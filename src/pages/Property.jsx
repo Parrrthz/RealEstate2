@@ -4,7 +4,7 @@ import { Links, useLocation } from "react-router-dom";
 import { getProperty, removeBooking } from "../utils/api";
 // import {PuffLoader} from 'react-spinners';
 import { MdOutlineBathtub, MdOutlineBed, MdOutlineGarage } from 'react-icons/md';
-// import HeartBtn from "../components/HeartBtn.jsx";
+import HeartBtn from "../components/HeartBtn.jsx";
 // import {Cgruler} from "react-icons/cg";
 import { FaLocationDot } from "react-icons/fa6";
 import Map from "../components/Map.jsx";
@@ -75,7 +75,7 @@ const { mutate: cancelBooking, isLoading: cancelling } = useMutation({
             <img src={data?.image} alt={data?.title} className="rounded-xl max-h-[27rem]  self-center w-full object-cover"/>
             {/* like btn */}
             <div className='absolute top-4 right-6'>
-                {/* <HeartBtn /> */}
+                <HeartBtn id={id}/>
             </div>
         </div>
         {/* container */}
@@ -114,7 +114,7 @@ const { mutate: cancelBooking, isLoading: cancelling } = useMutation({
             >
               Cancel Booking
             </Button>
-            <p>
+            <p className="text-red-500 medium-15 ml-3">
               You've already booked visit for {bookings?.filter((booking)=> booking?.id === id)[0].date}
             </p>
               </>

@@ -149,3 +149,76 @@ export const bookVisit = async (value, propertyId, email, token) => {
       throw error
     }
   }
+
+
+
+
+// favourites api for user
+  export const tofav = async (id, email, token)=>{
+   try {
+    await api.post(
+      `/user/tofav/${id}`,
+      {
+        email,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+   } catch (error) {
+    throw error;
+   }
+  }
+
+
+
+  // get all favourites properties 
+
+  export const getAllFav = async (email,token)=>{
+    if(!token) return
+    try {
+      
+      const res = await api.post (`/user/allFav/`,{
+        email
+        },
+      {
+        headers:{
+          Authorization: `Bearer ${token}`
+        },
+      });
+
+      // console.log(res)
+
+      return res.data["favResidenciesID"];
+    } catch (e) {
+      toast.error("something went wrong while fetching favs")
+      throw e;
+    }
+  }
+
+
+   // get all favourites properties 
+
+   export const getAllBookings = async (email,token)=>{
+    if(!token) return
+    try {
+      
+      const res = await api.post (`/user/allBookings/`,{
+        email,
+        },
+      {
+        headers:{
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // console.log("res",res)
+
+      return res.data["bookedVisits"];
+    } catch (error) {
+      toast.error("something went wrong while fetching bookings")
+      throw error;
+    }
+  }
