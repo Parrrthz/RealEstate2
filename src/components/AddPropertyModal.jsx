@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import {Button, Container, Group, Modal, Stepper} from "@mantine/core";
+import {Container, Modal, Stepper} from "@mantine/core";
 import AddLocation from './AddLocation';
 import { useAuth0 } from '@auth0/auth0-react';
+import UploadImage from './UploadImage';
+import Facilities from './Facilities';
+import BasicDetails from './BasicDetails';
 
 const AddPropertyModal = ({opened, setOpened}) => {
 
@@ -51,21 +54,29 @@ const AddPropertyModal = ({opened, setOpened}) => {
         setPropertyDetails={setPropertyDetails}
         />
         </Stepper.Step>
-        <Stepper.Step label="Second step" description="Verify email">
-          Step 2 content: Verify email
+        <Stepper.Step label="Image" description="Upload Image">
+        <UploadImage
+        prevStep={prevStep}
+        nextStep={nextStep}
+        propertyDetails={propertyDetails}
+        setPropertyDetails={setPropertyDetails}
+        />
         </Stepper.Step>
-        <Stepper.Step label="Final step" description="Get full access">
-          Step 3 content: Get full access
+        <Stepper.Step label="Basics" description="Details">
+        <BasicDetails
+        prevStep={prevStep}
+        nextStep={nextStep}
+        propertyDetails={propertyDetails}
+        setPropertyDetails={setPropertyDetails}
+        />
+        </Stepper.Step>
+        <Stepper.Step>
+          <Facilities />
         </Stepper.Step>
         <Stepper.Completed>
           Completed, click back button to get to previous step
         </Stepper.Completed>
       </Stepper>
-
-      <Group justify="center" mt="xl">
-        <Button variant="default" onClick={prevStep}>Back</Button>
-        <Button onClick={nextStep}>Next step</Button>
-      </Group>
     </>
         </Container>    
     </Modal>

@@ -53,10 +53,10 @@ import React from 'react';
 import { useForm } from "@mantine/form";
 import { validateString } from '../utils/common';
 import useCountries from '../hooks/useCountries';
-import { Select, TextInput } from '@mantine/core'; // Ensure Mantine is properly imported
+import { Button, Group, Select, TextInput } from '@mantine/core'; // Ensure Mantine is properly imported
 import Map from './Map';
 
-const AddLocation = ({ propertyDetails, setPropertyDetails }) => {
+const AddLocation = ({ propertyDetails, setPropertyDetails, nextStep }) => {
     const { getAll } = useCountries();
 
     const form = useForm({
@@ -72,9 +72,22 @@ const AddLocation = ({ propertyDetails, setPropertyDetails }) => {
         },
     });
     
-    const {city, country, address} = form.values;
+    const {country, city, address} = form.values;
+
+    const handleSubmit = () =>{
+        const {hasErrors} = form.validate();
+        if(!hasErrors){
+            setPropertyDetails((prev)=> ({...prev, country, city, address}));
+            nextStep();
+        }
+    }
     return (
-        <form>
+        <form 
+        onSubmit={(e)=>{
+            e.preventDefault();
+            handleSubmit();
+        }}
+        >
             <div className="flexCenter">
             {/* Left Section */}
             <div>
@@ -112,8 +125,12 @@ const AddLocation = ({ propertyDetails, setPropertyDetails }) => {
                 <Map address={address} city={city} country={country} />
             </div>
         </div>
+        <Group justify="center" mt="xl">
+                <Button type="submit">Next step</Button>
+              </Group>
      </form>
     );
 };
 
 export default AddLocation;
+  

@@ -222,3 +222,21 @@ export const bookVisit = async (value, propertyId, email, token) => {
       throw error;
     }
   }
+
+  export const  createResidency = async (data, token, userEmail)=>{
+    // Ensure user email is included in the data object 
+    const requestData = { ...data,  userEmail };
+    console.log(requestData); // Log the updated data objet 
+    try {
+      const res = await api.post(`/residency/create`,
+         requestData, // Pass the Updated data object aas the request body 
+       {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+       }
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
