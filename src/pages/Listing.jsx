@@ -1,4 +1,4 @@
-  import React from "react";
+  import React, { useState } from "react";
   import Searchbar from "../components/Searchbar";
   // import {PROPERTIES} from '../constant/data.jsx'
   import Item from "../components/Item";
@@ -8,7 +8,8 @@
 
   const Listing = () => {
     const { data=[], isError, isLoading } = useProperties();
-    console.log(data)
+    // console.log(data)
+    const [filter, setFilter] =  useState("")
 
     // if (isError) {
     //   return (
@@ -32,17 +33,22 @@
     // }
 
     return (
-      <main className="max-padd-container my-[99px]">
-        <div className="max-padd-container py-10 xl:py22 bg-primary rounded-3xl">
+      <main className="max-pad-container my-[99px]">
+        <div className="max-pad-container py-10 xl:py22 bg-primary rounded-3xl">
           <div>
-            <Searchbar />
+            <Searchbar filter={filter} setFilter={setFilter} />
             {/* container */}
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-10">
               {/* {data.map((property) => (
                 <Item key={property.title} property={property} />
               ))} */}
                {Array.isArray(data) && data.length > 0 ? (
-            data.map((property) => (
+            data.filter((property)=>
+              property.title.toLowerCase().include(filter.toLowerCase()) ||
+              property.city.toLowerCase().include(filter.toLowerCase()) ||
+              property.country.toLowerCase().include(filter.toLowerCase())
+             )
+               .map((property) => (
               <Item key={property.title} property={property} />
             ))
           ) : (
@@ -89,8 +95,8 @@
 //     // }
   
 //     return (
-//       <main className="max-padd-container my-[99px]">
-//         <div className="max-padd-container py-10 xl:py-22 bg-primary rounded-3xl">
+//       <main className="max-pad-container my-[99px]">
+//         <div className="max-pad-container py-10 xl:py-22 bg-primary rounded-3xl">
 //           <Searchbar />
 //           <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-10">
 //             {PROPERTIES.map((property) => (
